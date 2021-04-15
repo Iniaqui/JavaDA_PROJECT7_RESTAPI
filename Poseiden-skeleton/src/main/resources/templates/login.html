@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <title>Login</title>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="m-3">
+            <h1>Connect with your username and your password </h1>
+        </div>
+        <form action="#" th:action="@{/app/login}" th:object="${user}" method="POST"  class="form-horizontal">
+            <div class="form-floating mb-3">
+				<label for="username">Username</label>
+				<input type="text" class="form-control" id="account" placeholder="Username" name="username">
+				
+			</div>
+            <div class="form-floating mb-3">
+				<label for="password">Passsword</label>
+				<input type="password" class="form-control" id="account" placeholder="Your password" name="password">
+				
+			</div>
+
+            <div  class="mt-3">
+				<input type="reset" class="btn btn-danger" value ="Cancel">
+                <a href="/user/add" class="btn btn-primary"> Sign up </a>
+				<input type="submit" class="btn btn-primary" value ="Connect">
+			</div>
+        </form>
+    </div>
+</body>
+</html>

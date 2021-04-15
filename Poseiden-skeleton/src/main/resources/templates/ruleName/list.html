@@ -41,6 +41,21 @@
 			</thead>
 			<tbody>
 			<!-- TODO: Show all RuleName to the table, the Action column will have Edit & Delete buttons -->
+			<tr th:if="${RuleNames.empty}">
+				<td colspan="6"> No Rules  Available </td>
+			</tr>
+			<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
+			<tr th:each="RuleName : ${RuleNames}">
+				<td th:text ="${RuleName.moodysRating}"></td>
+				<td th:text="${RuleName.sandPRating}"></td>
+				<td th:text="${RuleName.fitchRating}"></td>
+				<td th:text="${RuleName.orderNumber}"></td>
+				<td>
+					<a href="update.html"  th:href="@{'/ruleName/update/' + ${RuleName.id}}" class="btn btn-primary">Editer</a>
+					<a href="#" class="btn btn-danger" th:href="@{'/ruleName/delete/' +  ${RuleName.id}} ">Supprimer</a>
+				</td>
+
+			</tr>
 			</tbody>
 		</table>
 	</div>

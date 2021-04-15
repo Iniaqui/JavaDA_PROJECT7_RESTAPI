@@ -18,8 +18,40 @@
 			<!--
 			TODO: Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName
 			 -->
-
+			 <div class="form-floating mb-3">
+				<label for="name">Name</label>
+				<input type="text" class="form-control" id="name" placeholder="name" name ="name" required="required">
+				
+			</div>
+			<div class="form-floating">
+				<label for="description">Description</label>
+				<input name="description"  class="form-control" id="description" placeholder="Description"  required="required">
+			</div>
+			<div class="form-floating">
+				<label for="json">Json</label>
+				<input type="text" class="form-control" id="json" placeholder="json" name ="json"  required="required">
+				
+			</div>
+			<div class="form-floating">
+				<label for="sqlStr">SqlSTR</label>
+				<input type="text" class="form-control" id="sqlStr" placeholder="sqlStr" name ="sqlStr"  required="required">
+				
+			</div>
+			<div class="form-floating">
+				<label for="sqlPart">Sql Part</label>
+				<input type="text" class="form-control" id="sqlPart" placeholder="sqlPart" name ="sqlPart"  required="required">
+				
+			</div>
+			<div  class="mt-3">
+				<input type="reset" class="btn btn-danger" value ="Cancel">
+				<input type="submit" class="btn btn-primary" value ="Add RuleName">	
+			</div>
 		</form>
+	</div>
+	<div  class=" text-center " th:if="${saved} == true"> 
+		<p th:text="${value}" class="text-center text-uppercase fs-3 text-success font-weight-bold ">
+				
+		</p>
 	</div>
 
 </div>

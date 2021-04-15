@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<title>Home</title>
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Update New Rule</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/ruleName/update/{id}(id=${ruleName.id})}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
+			<!--
+			TODO: Create a form to edit the values of RuleName, there are 2 buttons: Update data and Cancel to the RuleName
+			 -->
+			 <div class="form-floating mb-4">
+				<label for="name">Name</label>
+				<input th:value =" ${ruleName.name}" type="text" class="form-control" id="name" placeholder="name" name ="name"  required="required">
+				
+			</div>
+			<div class="form-floating mb-3">
+				<label for="description">Descritpion</label>
+				<textarea  th:value="${ruleName.description}" name="description" id="description" cols="30" rows="10"  required="required"></textarea>
+			</div>
+			<div class="form-floating mb-4">
+				<label for="json">Json</label>
+				<input th:value="${ruleName.json}" type="text" class="form-control" id="json" placeholder="json" name ="json"  required="required">
+				
+			</div>
+			<div class="form-floating mb-4">
+				<label for="sqlStr">Sql STR</label>
+				<input th:value="${ruleName.sqlStr}" type="text" class="form-control" id="sqlStr" placeholder="sqlStr" name ="sqlStr"  required="required">  
+				
+			</div>
+			<div class="form-floating mb-3">
+				<label for="sqlPart">Sql STR</label>
+				<input th:value="${ruleName.sqlPart}" type="text" class="form-control" id="sqlPart" placeholder="sqlPart" name ="sqlPart"  required="required">
+			</div>
+
+			<div  class="mt-3">
+
+				
+				<input type="reset" class="btn btn-danger" value ="Cancel">
+				<input type="submit" class="btn btn-primary" value ="Update RuleName">
+				
+			</div>
+		</form>
+	</div>
+
+</div>
+</body>
+</html>

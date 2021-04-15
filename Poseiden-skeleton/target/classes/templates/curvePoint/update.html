@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<h2>Update CurvePoint</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curvePoint.id})}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
+			<!--
+			TODO: Create a form to edit the values of CurvePoint, there are 2 buttons: Update data and Cancel to the Curve Point
+			 -->
+			 <div class="form-floating mb-3">
+				<label for="curveId">Curve Id</label>
+				<input type="number" class="form-control" id="account" th:field="*{curveId}" th:value="${curvePoint.curveId}"  required="required">
+				<p th:if="${#fields.hasErrors('curveId')}" th:errors="*{curveId}">Name Error</p>
+			</div>
+			<div class="form-floating">
+				<label for="term">Term</label>
+				<input type="number" class="form-control" id="type" th:field="*{term}" th:value="${curvePoint.term}">
+				<p th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></p>
+			</div>
+			<div class="form-floating">
+				<label for="value">Value</label>
+				<input type="number" class="form-control" id="bidQuantity" placeholder="Value" th:field="*{value}"   th:value="${curvePoint.value}"  required="required">
+				<p th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
+			</div>
+
+			<div  class="mt-3">
+				<input type="reset" class="btn btn-danger" value ="Cancel">
+				<input type="submit" class="btn btn-primary" value ="Update Curve Point">
+				
+			</div>
+		</form>
+	</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Add New Bid</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
+			<!--
+			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
+			 -->
+			 <div class="form-floating mb-3">
+				<label for="account">Account</label>
+				<input type="text" class="form-control" id="account" placeholder="Account" th:field="*{account}" required="required">
+				<p th:if="${#fields.hasErrors('account')}" th:errors="*{account}">Name Error</p>
+			</div>
+			<div class="form-floating">
+				<label for="type">Type</label>
+				<input type="text" class="form-control" id="type" placeholder="Type" required="required" th:field="*{type}">
+				<p th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Name Error</p>
+			</div>
+			<div class="form-floating">
+				<label for="bidQuantity">Bid Quantity</label>
+				<input type="number" class="form-control" id="bidQuantity" placeholder="bidQuantity" required="required" th:field="*{bidQuantity}">
+				<p th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}">Name Error</p>
+			</div>
+
+			<div  class="mt-3">
+
+				
+				<input type="reset" class="btn btn-danger" value ="Cancel">
+				<input type="submit" class="btn btn-primary" value ="Add Bid List">
+				
+			</div>
+		</form>
+
+		
+	</div>
+	<div  class=" text-center " th:if="${saved} == true"> 
+		<p th:text="${value}" class="text-center text-uppercase fs-3 text-success font-weight-bold ">
+				
+		</p>
+	</div>
+
+</div>
+</body>
+</html>

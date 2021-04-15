@@ -16,7 +16,31 @@
 		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
 			<!--
 			TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
-			 -->
+			 --> 
+
+			 <div class="form-floating mb-3">
+				<label for="account">Account</label>
+				<input th:value =" ${bidList.account}" type="text" class="form-control" id="account" placeholder="Account" th:field="*{account}"  required="required">
+				<p th:if="${#fields.hasErrors('account')}" th:errors="*{account}">Name Error</p>
+			</div>
+			<div class="form-floating">
+				<label for="type">Type</label>
+				<input   th:value="${bidList.type}" type="text" class="form-control" id="type" placeholder="Type" th:field="*{type}"  required="required">
+				<p th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Name Error</p>
+			</div>
+			<div class="form-floating">
+				<label for="bidQuantity">Bid Quantity</label>
+				<input th:value="${bidList.bidQuantity}" type="nnumber" class="form-control" id="bidQuantity" placeholder="bidQuantity" th:field="*{bidQuantity}"  required="required">
+				<p th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}">Name Error</p>
+			</div>
+
+			<div  class="mt-3">
+
+				
+				<input type="reset" class="btn btn-danger" value ="Cancel">
+				<input type="submit" class="btn btn-primary" value ="Update Bid List">
+				
+			</div>
 		</form>
 	</div>
 

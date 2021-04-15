@@ -18,6 +18,34 @@
 			<!--
 			TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating
 			 -->
+			 <div class="form-floating mb-3">
+				<label for="moodysRating">Moodys Rating</label>
+				<input th:value =" ${rating.moodysRating}" type="text" class="form-control" id="moodysRating" placeholder="moodysRating" th:field="*{moodysRating}"   required="required">
+				<p th:if="${#fields.hasErrors('moodysRating')}" th:errors="*{moodysRating}"></p>
+			</div>
+			<div class="form-floating">
+				<label for="sandPRating">Sand Rating</label>
+				<input   th:value="${rating.sandPRating}" type="text" class="form-control" id="sandPRating" placeholder="sandPRating" th:field="*{sandPRating}"  required="required">
+				<p th:if="${#fields.hasErrors('sandPRating')}" th:errors="*{sandPRating}"></p>
+			</div>
+			<div class="form-floating">
+				<label for="fitchRating">Fitch Rating</label>
+				<input th:value="${rating.fitchRating}" type="text" class="form-control" id="fitchRating" placeholder="fitchRating"  th:field="*{fitchRating}"   required="required">
+				<p th:if="${#fields.hasErrors('fitchRating')}" th:errors="*{fitchRating}"></p>
+			</div>
+			<div class="form-floating">
+				<label for="orderNumber">Order Number</label>
+				<input th:value="${rating.orderNumber}" type="number" class="form-control" id="orderNumber" placeholder="orderNumber"  th:field="*{orderNumber}" required="required">
+				<p th:if="${#fields.hasErrors('fitchRating')}" th:errors="*{fitchRating}"></p>
+			</div>
+
+			<div  class="mt-3">
+
+				
+				<input type="reset" class="btn btn-danger" value ="Cancel">
+				<input type="submit" class="btn btn-primary" value ="Update Rating">
+				
+			</div>
 		</form>
 	</div>
 

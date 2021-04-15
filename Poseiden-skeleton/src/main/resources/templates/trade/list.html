@@ -38,7 +38,22 @@
 			</thead>
 			<tbody>
 			<!-- TODO: Show all Trade to the table, the Action column will have Edit & Delete buttons -->
+			<tr th:if="${Trades.empty}">
+				<td colspan="6"> No Rating  Available </td>
+			</tr>
+			<tr th:each="Trade : ${listeRating}">
+				<td th:text ="${Trade.moodysRating}"></td>
+				<td th:text="${Trade.sandPRating}"></td>
+				<td th:text="${Trade.fitchRating}"></td>
+				<td th:text="${Trade.orderNumber}"></td>
+				<td>
+					<a href="update.html"  th:href="@{'/trade/update/' + ${Trade.id}}" class="btn btn-primary">Editer</a>
+					<a href="#" class="btn btn-danger" th:href="@{'/trade/delete/' +  ${Trade.id}} ">Supprimer</a>
+				</td>
+
+			</tr>
 			</tbody>
+
 		</table>
 	</div>
 </div>

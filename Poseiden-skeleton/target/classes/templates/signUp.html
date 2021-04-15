@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <title>Sign up </title>
+</head>
+<body>
+    <div class="container">
+        <div class="m-3">
+            <h1>Enter your mail adress and password </h1>
+        </div>
+        <form action="#" th:action="@{/user/validate}" th:object="${user}" method="post" class="form-horizontal">
+            <div class="form-floating mb-3">
+				<label for="username">Username</label>
+				<input type="text" class="form-control" id="account" placeholder="Username" th:field="*{username}" required="required">
+				<p th:if="${#fields.hasErrors('username)}" th:errors="*{username}">Name Errors</p>
+			</div>
+            <div class="form-floating mb-3">
+				<label for="username">Username</label>
+				<input type="text" class="form-control" id="account" placeholder="FullName" th:field="*{fullname}" required="required">
+				<p th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}">Name errors</p>
+			</div>
+            <div class="form-floating mb-3">
+				<label for="password">Passsword</label>
+				<input type="password" class="form-control" id="account" placeholder="Your password" th:field="*{password}">
+				<p th:if="${#fields.hasErrors('password')} " th:errors="*{password}"></p>
+			</div>
+
+            <div  class="mt-3">
+				<input type="reset" class="btn btn-danger" value ="Cancel">
+               
+				<input type="submit" class="btn btn-primary" value ="Connect">
+
+                <a href="#" class="btn btn-primary"> Sign up with GITHUB  </a>
+			</div>
+        </form>
+    </div>
+</body>
+</html>

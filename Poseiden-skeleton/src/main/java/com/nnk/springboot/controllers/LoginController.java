@@ -1,11 +1,13 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.nnk.springboot.domain.User;
+import com.nnk.springboot.repositories.UserRepository;
 
 @Controller
 @RequestMapping("app")
@@ -15,8 +17,9 @@ public class LoginController {
     private UserRepository userRepository;
 
     @GetMapping("login")
-    public ModelAndView login() {
+    public ModelAndView login(User user) {
         ModelAndView mav = new ModelAndView();
+        mav.addObject("user", user);
         mav.setViewName("login");
         return mav;
     }
@@ -36,5 +39,13 @@ public class LoginController {
         mav.addObject("errorMsg", errorMessage);
         mav.setViewName("403");
         return mav;
+    }
+    
+    @GetMapping("/signUp")
+    public ModelAndView signUp(User user) {
+    	ModelAndView mav = new ModelAndView();
+    	mav.addObject("user", user);
+    	mav.setViewName("signUp");
+    	return mav;
     }
 }
