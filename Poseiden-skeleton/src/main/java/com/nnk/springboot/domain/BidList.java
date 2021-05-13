@@ -10,7 +10,11 @@ import javax.validation.constraints.NotNull;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-
+/**
+ * Constitutes the entity that refers to the name of the table in the database , 
+ * @author maure
+ *
+ */
 @Entity
 @Table(name = "bidlist")
 public class BidList {

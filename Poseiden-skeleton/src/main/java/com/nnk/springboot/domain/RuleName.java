@@ -2,8 +2,11 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
+/**
+*  Constitutes the entity that refers to the name of the table in the database 
+* @author maure
+*
+*/
 
 @Entity
 @Table(name = "rulename")

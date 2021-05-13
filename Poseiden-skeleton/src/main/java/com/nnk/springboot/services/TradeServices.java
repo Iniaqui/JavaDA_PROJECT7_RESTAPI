@@ -6,23 +6,37 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.execptions.RessourceNotFoundException;
 import com.nnk.springboot.repositories.TradeRepository;
-
+/**
+ *  It is a class whose role is to execute the CRUD methods linked to the Trade entity
+ * @author maure
+ *
+ */
 @Service
 @Transactional
 public class TradeServices implements CrudInterface<Trade> {
 	@Autowired
 	TradeRepository tradeRepository;
-
+	/**
+	 * Method to postpone a trade by passing the JPA Repositories
+	 * @param Elle prends un objet data de type Trade 
+	 * @return returns the instance of this class once the insertion in the database is done 
+	 *  @see Trade
+	 */
 	@Override
 	public Trade save(Trade data) {
 		// TODO Auto-generated method stub
 		return this.tradeRepository.save(data);
 	}
-
+	/**
+	 * Method to update an entity in the database 
+	 * @param Take in parameter the new modified entity which overwrites the old one contained in the database 
+	 * @return returns the new entity thus modified 
+	 * @throws in case of error generates a RessourceNotFoundException translated by the fact that the entity to be modfied is not found 
+	 * @see Trade
+	 */
 	@Override
 	public Trade update(Trade data) {
 		// TODO Auto-generated method stub
@@ -59,6 +73,12 @@ public class TradeServices implements CrudInterface<Trade> {
 		}
 		
 	}
+	/**
+	 * Method to access an entity by its id 
+	 * @param Take in parameter the ide of the entity 
+	 * @return returns the entity when found in the database 
+	 * @throws Leve une exception en cas d'echec de la recherche de l'entité 
+	 */
 
 	@Override
 	public Trade readById(int id) {
@@ -68,15 +88,15 @@ public class TradeServices implements CrudInterface<Trade> {
 			return tradeDB.get();
 		}
 		else {
-			throw new RessourceNotFoundException("Trade not found with id = " +id);
+			return null;
 		}
 	}
-
-	@Override
-	public Trade readByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * Method to delete an entity from the database 
+	 * @param Take in parameter the ide of the entity to delete 
+	 * @throws Throw an exception if the search for the entity fails 
+	 * 
+	 */
 
 	@Override
 	public void deleted(int id) {
@@ -90,6 +110,11 @@ public class TradeServices implements CrudInterface<Trade> {
 		}
 		
 	}
+	/**
+	 * This method returns the list of entities contained in the Trade 
+	 * @return Return a list of Trade
+	 *  @see Trade
+	 */
 
 	@Override
 	public List<Trade> getAllData() {

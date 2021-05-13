@@ -8,6 +8,12 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.nnk.springboot.annotations.ValidatorPassword;
+/**
+ * Constitutes the entity that refers to the name of the table in the database 
+ * @author maure
+ *
+ */
 @Entity
 @Table(name = "users")
 
@@ -19,6 +25,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
     @NotBlank(message = "Password is mandatory")
+    @ValidatorPassword(message="Password must contains 1 character Special, 1 UpperCase, 1 digit, and min 8 Character")
     private String password;
     @NotBlank(message = "FullName is mandatory")
     private String fullname;
@@ -26,6 +33,14 @@ public class User implements UserDetails {
     private String role;
 
     public User() {
+    	
+    }
+    public User(int id,String username,String password,String fullname,String role) {
+    	this.id=id;
+    	this.fullname=fullname;
+    	this.password=password;
+    	this.username=username;
+    	this.role=role;
     	
     }
     public Integer getId() {

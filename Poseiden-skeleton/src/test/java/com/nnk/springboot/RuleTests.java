@@ -1,13 +1,15 @@
 package com.nnk.springboot;
 
 import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +27,7 @@ public class RuleTests {
 	private RuleNameRepository ruleNameRepository;
 	@Autowired
 	RuleNameServices ruleNameServices;
-
+	
 	@Test
 	public void ruleTest() {
 		RuleName rule = new RuleName("Rule Name");
@@ -43,11 +45,13 @@ public class RuleTests {
 		// Find
 		List<RuleName> listResult = ruleNameServices.getAllData();
 		assertTrue(listResult.size() > 0);
-
-		// Delete
+		// Find by Id
 		Integer id = rule.getId();
+		RuleName idruleList = ruleNameServices.readById(id);
+		assertNotNull(idruleList);
+		// Delete
 		ruleNameServices.deleted(id);
-		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
-		assertFalse(ruleList.isPresent());
+		RuleName ruleList = ruleNameServices.readById(id);
+		assertNull(ruleList);
 	}
 }

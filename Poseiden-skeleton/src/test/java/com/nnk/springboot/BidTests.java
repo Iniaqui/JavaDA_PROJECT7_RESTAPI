@@ -4,12 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
+//import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,14 +56,20 @@ public class BidTests {
 		assertEquals(bid.getBidQuantity(), 20d, 20d);
 
 		// Find
+		
 		List<BidList> listResult = bidListeService.getAllData();
 		assertTrue(listResult.size() > 0);
-
-		// Delete
+		
+		//FIND BY ID
+		
 		Integer id = bid.getBidListId();
+		BidList findbidList = bidListeService.readById(id);
+		assertNotNull(findbidList);
+		// Delete
+		
 		bidListeService.deleted(id);
-		Optional<BidList> bidList = bidListRepository.findById(id);
-		assertFalse(bidList.isPresent());
+		BidList bidList = bidListeService.readById(id);
+		assertNull(bidList);
 	}
 	
 	

@@ -13,18 +13,35 @@ import com.nnk.springboot.repositories.BidListRepository;
 
 import ch.qos.logback.classic.Logger;
 
+/**
+ * It is a class whose role is to execute the CRUD methods linked to the BidList entity
+ * @author maure
+ *
+ */
 
 @Service
 @Transactional
 public class BidListService implements CrudInterface<BidList> {
 	@Autowired
 	BidListRepository bidListRepository;
-
+/**
+ * Method to update a BidList by passing the JPA Repositories
+ * @param It takes a data object of type BidList 
+ * @return returns the instance of this class once the insertion in the database is done 
+ *  @see BidList
+ */
 	@Override
 	public BidList save(BidList data) {
 		// TODO Auto-generated method stub
 		return bidListRepository.save(data);
 	}
+/**
+ * Method to update an entity in the database 
+ * @param Take as parameter the new modified entity that will overwrite the old one contained in the database 
+ * @return returns the new entity thus modified 
+ * @throws in case of error generates a RessourceNotFoundException translated by the fact that the entity to be modfied is not found 
+ * @see BidList
+ */
 
 	@Override
 	public BidList update(BidList data) {
@@ -64,6 +81,13 @@ public class BidListService implements CrudInterface<BidList> {
 		}
 		
 	}
+	
+	/**
+	 * Method to access an entity by its id 
+	 * @param Take in parameter the ide of the entity 
+	 * @return returns the entity when found in the database 
+	 * @throws Throw an exception if the search for the entity fails 
+	 */
 
 	@Override
 	public BidList readById(int id) {
@@ -74,17 +98,16 @@ public class BidListService implements CrudInterface<BidList> {
 			return bidListDb.get();
 		}
 		else {
-			throw new RessourceNotFoundException("Record not found with id = " +id);
+			return null;
 		}
 		
 	}
-
-	@Override
-	public BidList readByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+/**
+ * Method to delete an entity from the database 
+ * @param Take in parameter the ide of the entity to delete 
+ * @throws Throw an exception if the search for the entity fails 
+ * 
+ */
 	@Override
 	public void deleted(int id) {
 		// TODO Auto-generated method stub
@@ -97,7 +120,11 @@ public class BidListService implements CrudInterface<BidList> {
 			throw new RessourceNotFoundException("Record not found with id = " +id);
 		}
 	}
-
+/**
+ * This method returns the list of entities contained in the BidList 
+ * @return Return a list of BidList
+ *  @see BidList
+ */
 	@Override
 	public List<BidList> getAllData() {
 		

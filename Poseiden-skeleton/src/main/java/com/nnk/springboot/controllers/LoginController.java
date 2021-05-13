@@ -1,5 +1,7 @@
 package com.nnk.springboot.controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,19 +10,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
-
+/**
+ * Class allowing the connection 
+ * @author maure
+ *
+ */
 @Controller
 @RequestMapping("app")
 public class LoginController {
 
     @Autowired
     private UserRepository userRepository;
-
+    private final Logger logger = LogManager.getLogger("LoginController");
     @GetMapping("login")
     public ModelAndView login(User user) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("user", user);
         mav.setViewName("login");
+        logger.info("Renvoie vers la page de login");
         return mav;
     }
 

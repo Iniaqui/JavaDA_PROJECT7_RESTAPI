@@ -17,29 +17,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeServices;
-
+/**
+ * Controller dealing with requests concerning a Trade 
+ * @author maure
+ *
+ */
 @Controller
 public class TradeController {
     // TODO: Inject Trade service
 	@Autowired
 	TradeServices tradeServices;
 	private final Logger logger= LogManager.getLogger("TradeController");
+	/**
+	 * Method called when /user/list is called to get a list
+	 * @param model
+	 * @return a page with the list of entities 
+	 */
     @RequestMapping("/trade/list")
     public String home(Model model)
     {
         // TODO: find all Trade, add to model
     	logger.info("Start of print the list of Trade ");
     	List<Trade> Trades = tradeServices.getAllData();
-    	
+    	model.addAttribute("userInfo", HomeController.getUserConnect().toString());
     	model.addAttribute("Trades", Trades);
         return "trade/list";
     }
-
+    /**
+     * Method used when /user/add is called to add an entity 
+     * @param trade
+     * @return the form for adding the entity 
+     */
     @GetMapping("/trade/add")
     public String addUser(Trade bid) {
     	logger.info("Redirect to the page of saving ");
         return "trade/add";
     }
+    /**
+     * Method used when /user/add is called to add an entity 
+     * @param trade
+     * @return the form for adding the entity with a confirmation
+     */
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
@@ -57,6 +75,12 @@ public class TradeController {
     	model.addAttribute("saved", saved);
         return "trade/add";
     }
+    /**
+     * Method called when /user/update/{id} is called to modify an entity 
+     * @param id corresponding to the id of the entity 
+     * @param model
+     * @return a form for modfication of the entity 
+     */
 
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
@@ -65,6 +89,14 @@ public class TradeController {
     	model.addAttribute("trade", tradeServices.readById(id));
         return "trade/update";
     }
+    /**
+     * Method called when /user/update/{id} is called to modify an entity 
+     * @param id
+     * @param trade
+     * @param result
+     * @param model
+     * @return return the list of entities once the entity is modified 
+     */
 
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
@@ -77,6 +109,12 @@ public class TradeController {
     	}
         return "redirect:/trade/list";
     }
+    /**
+     * Method called when /user/delete/{id} is called to delete an entity 
+     * @param id
+     * @param model
+     * @return a list of available entities 
+     */
 
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {

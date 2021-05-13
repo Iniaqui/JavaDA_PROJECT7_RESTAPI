@@ -4,7 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.nnk.springboot.domain.Trade;
-
+/**
+ *  Repository inheriting from the JpaRepository class to process information with the database 
+ * @author maure
+ *
+ */
 @Repository
 public interface TradeRepository extends JpaRepository<Trade, Integer> {
 }

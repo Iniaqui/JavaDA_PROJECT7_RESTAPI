@@ -6,10 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
+/**
+*  Constitutes the entity that refers to the name of the table in the database 
+* @author maure
+*
+*/
 @Entity
 @Table(name = "trade")
 public class Trade {

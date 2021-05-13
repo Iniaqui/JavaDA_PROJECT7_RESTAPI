@@ -2,6 +2,7 @@ package com.nnk.springboot;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +29,10 @@ public class RatingTests {
 	@Autowired
 	RatingServices ratingServices;
 
+	@BeforeAll
+	static void setUp() {
+		
+	}
 	@Test
 	public void ratingTest() {
 		Rating rating = new Rating(10);
@@ -44,11 +50,14 @@ public class RatingTests {
 		// Find
 		List<Rating> listResult = ratingServices.getAllData();
 		Assert.assertTrue(listResult.size() > 0);
-
-		// Delete
+		// Find by Id 
 		Integer id = rating.getId();
+		Rating idratingList = ratingServices.readById(id);
+		assertNotNull(idratingList);
+		// Delete
+		
 		ratingServices.deleted(id);;
-		Optional<Rating> ratingList = ratingRepository.findById(id);
-		assertFalse(ratingList.isPresent());
+		Rating ratingList = ratingServices.readById(id);
+		assertNull(ratingList);
 	}
 }

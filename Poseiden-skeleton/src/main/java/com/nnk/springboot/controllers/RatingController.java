@@ -17,13 +17,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingServices;
-
+/**
+ * Controller handling requests for a Rate 
+ * @author maure
+ *
+ */
 @Controller
 public class RatingController {
     // TODO: Inject Rating service
 	@Autowired
 	RatingServices ratingServices;
 	private final Logger logger= LogManager.getLogger("RatingController");
+	/**
+	 * Method used when the /rating/list query is called to get a list 
+	 * @param model
+	 * @return a page with the list of entities 
+	 */
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
@@ -31,14 +40,24 @@ public class RatingController {
     	logger.info("Start of print the list of Rating ");
     	List<Rating> listeRating = ratingServices.getAllData();
     	model.addAttribute("listeRating", listeRating);
+    	model.addAttribute("userInfo", HomeController.getUserConnect().toString());
         return "rating/list";
     }
-
+    /**
+     * Method used when /rating/add is called to add an entity 
+     * @param rating
+     * @return the form for adding the entity 
+     */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
     	logger.info("Redirect to the page of saving ");
         return "rating/add";
     }
+    /**
+     * Method used when /rating/validate is called to add an entity 
+     * @param rating
+     * @return the form for adding the entity with a confirmation
+     */
 
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
@@ -57,7 +76,12 @@ public class RatingController {
     	logger.info("End of Treatment of add Rating request ");
         return "rating/add";
     }
-
+    /**
+     * Method called when /rating/update/{id} is called to modify an entity 
+     * @param id corresponding to the id of the entity 
+     * @param model
+     * @return a form for modfication of the entity 
+     */
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Rating by Id and to model then show to the form
@@ -66,7 +90,14 @@ public class RatingController {
     	model.addAttribute("rating", rating);
         return "rating/update";
     }
-
+    /**
+     * Method called when /rating/update/{id} is called to modify an entity 
+     * @param id
+     * @param rating
+     * @param result
+     * @param model
+     * @return return the list of entities once the entity is modified 
+     */
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
@@ -78,7 +109,12 @@ public class RatingController {
     	}
         return "redirect:/rating/list";
     }
-
+    /**
+     * Method called when /rating/delete/{id} is called to delete an entity 
+     * @param id
+     * @param model
+     * @return a list of available entities 
+     */
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Rating by Id and delete the Rating, return to Rating list

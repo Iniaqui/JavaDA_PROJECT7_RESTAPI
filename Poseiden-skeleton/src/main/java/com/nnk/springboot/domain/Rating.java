@@ -6,7 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-
+/**
+*  Constitutes the entity that refers to the name of the table in the database 
+* @author maure
+*
+*/
 @Entity
 @Table(name = "rating")
 public class Rating {

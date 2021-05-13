@@ -1,5 +1,7 @@
 package com.nnk.springboot.security;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,56 +17,67 @@ import org.springframework.security.web.authentication.Http403ForbiddenEntryPoin
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 import com.nnk.springboot.services.UserServices;
-
+/**
+ * Security configuration class, will be scanned by spring boot when launching the app 
+ * 
+ * @author maure
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	UserServices userDetailsService;
-	 
-	 @Override
-	 public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		 authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());//Permet de creer l'authentification avec la base de données
+	  /**
+	   * Method to establish a global configuration of how users will be authenticated 
+	   * Uses a dataSource that contains the list of authorized users 
+	   * @param auth
+	   * @param dataSource
+	   * @throws Exception
+	   */
+	 @Autowired
+	 public void globalConfig(AuthenticationManagerBuilder auth,DataSource dataSource) throws Exception{
+		 auth.jdbcAuthentication()
+		 		.dataSource(dataSource)
+		 		.usersByUsernameQuery("select username as principal,password as credentials, true from users where username = ? ")
+		 		.authoritiesByUsernameQuery("select username as principal , role as role from users where username = ?");
+		 
+		 		
 	 }
+	 /**
+	  * Method to manage the accessibility of pages 
+	  * @param Take an HttpSecurity that will scan the user's request 
+	  */
 	@Override
 	public void configure(HttpSecurity http) throws Exception{
-		http.csrf()
-			.disable()
-			.exceptionHandling()
-			.authenticationEntryPoint(new Http403ForbiddenEntryPoint() {
-            })
-			.and()
-			.authenticationProvider(getProvider())
-			.formLogin()
-			.loginPage("/app/login")
-			.loginProcessingUrl("/login")
-			.successHandler(new AuthentificationLoginSuccessHandler())
-			.failureHandler(new SimpleUrlAuthenticationFailureHandler())
-			.and()
-			.logout()
-			.logoutUrl("/logout")
-			.logoutSuccessHandler(new AuthentificationLogoutSuccessHandler())
-			.invalidateHttpSession(true)
-			.and()
+		http
+			.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/app/login").permitAll()
-			.antMatchers("/logout").permitAll()
-			.anyRequest().authenticated();
+				.antMatchers("/css/**").permitAll()
+				.antMatchers("/user/add").permitAll()
+				.antMatchers("/user/validate").permitAll()
+				.anyRequest()
+						.authenticated()
+							.and()
 			
-			
-			
-			
-		
+			.formLogin()
+				.loginPage("/app/login")
+					.permitAll()
+					.defaultSuccessUrl("/")
+					.failureUrl("/app/error")
+			    .and()
+			    .logout()
+			    	.logoutUrl("/app-logout")
+			    	.logoutSuccessUrl("/app/login")
+			    	.and()
+		    	.oauth2Login();
+		    
 	}
-	
-
-	private AuthenticationProvider getProvider() {
-		// TODO Auto-generated method stub
-		AppAuthProvider provider = new AppAuthProvider();
-        provider.setUserDetailsService(userDetailsService);
-        return provider;
-	}
+	/**
+	 * Static method to generate a Bcrypt instance that takes care of encrypting the information 
+	 * @return
+	 */
 	  @Bean
 	    public static BCryptPasswordEncoder passwordEncoder() {
 	        return new BCryptPasswordEncoder();
